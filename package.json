@@ -2,10 +2,13 @@
   "name": "lan-shared-form",
   "private": true,
   "version": "0.2.0",
+  "homepage": "https://USERNAME.github.io/shared_file_react",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "lint": "next lint || echo 'no lint config'",
     "typecheck": "tsc --noEmit",
     "dev:vite-legacy": "vite"
@@ -15,6 +18,7 @@
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.15",
     "formik": "^2.4.6",
+    "gh-pages": "^6.3.0",
     "next": "^15.5.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
