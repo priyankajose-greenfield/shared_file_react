@@ -24,21 +24,19 @@ export function hasPersistedHandleMarker(): boolean {
 }
 
 export async function pickJsonFile(): Promise<FileSystemFileHandle | null> {
+  const win = window as any;
+  if (typeof win.showOpenFilePicker !== 'function') {
+    alert('Your browser does not support the File System Access API. Please use Chrome or Edge.');
+    return null;
+  }
   try {
-    const [handle] = await (window as any).showOpenFilePicker({
-      types: [
-        { description: 'JSON', accept: { 'application/json': ['.json'] } },
-      ],
+    const [handle] = await win.showOpenFilePicker({
+      types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
       excludeAcceptAllOption: true,
       multiple: false,
     });
     return handle as FileSystemFileHandle;
-  } catch (e) {
-    if ((e as any).name !== 'AbortError') {
-      console.error('File pick error', e);
-    }
-    return null;
-  }
+  } catch (e: any) { if (e?.name !== 'AbortError') console.error('File pick error', e); return null; }
 }
 
 export async function readDb(handle: FileSystemFileHandle): Promise<any[]> {

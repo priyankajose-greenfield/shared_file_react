@@ -3,6 +3,10 @@ const HANDLE_KEY = 'shared_json_file_handle_v1';
 export function markHandleChosen(): void { try { localStorage.setItem(HANDLE_KEY, '1'); } catch {} }
 export function hasHandleMarker(): boolean { try { return localStorage.getItem(HANDLE_KEY) === '1'; } catch { return false; } }
 export async function pickJsonFile(): Promise<FileSystemFileHandle | null> {
+  if (typeof (window as any).showOpenFilePicker !== 'function') {
+    alert('Your browser does not support the File System Access API. Please use Chrome or Edge.');
+    return null;
+  }
   try {
     const [handle] = await (window as any).showOpenFilePicker({
       types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
