@@ -4,8 +4,7 @@ const nextConfig = {
   images: {
     unoptimized: true // required for GitHub Pages
   },
-  basePath: "/shared_file_react", // 👈 add repo name here
-  assetPrefix: "/shared_file_react/", // 👈 ensures assets load correctly
+  // basePath and assetPrefix removed for Vercel root deployment
 };
 
 module.exports = nextConfig;
